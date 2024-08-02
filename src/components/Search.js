@@ -5,14 +5,14 @@ import { debounce } from "../utils/debounce";
 function Search({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = useCallback(
-    debounce(searchTerm => {
+  const debouncedSearch = useCallback(
+    debounce(term => {
       const searchPromise = new Promise((resolve, reject) => {
-        if (searchTerm) {
-          onSearch(searchTerm);
+        if (term) {
+          onSearch(term);
           resolve();
         } else {
-          onSearch(searchTerm);
+          onSearch(term);
           reject();
         }
       });
@@ -25,14 +25,14 @@ function Search({ onSearch }) {
           error: <b>Not Found.</b>,
         }
       );
-    }, 500), // Adjust the debounce delay as needed
-    []
+    }, 500),
+    [onSearch]
   );
 
   const handleChange = e => {
-    const searchTerm = e.target.value;
-    setSearchTerm(searchTerm);
-    handleSearch(searchTerm);
+    const term = e.target.value;
+    setSearchTerm(term);
+    debouncedSearch(term);
   };
 
   return (

@@ -12,7 +12,7 @@ function AccountContainer() {
       .then(response => response.json())
       .then(data => {
         setTransactions(data);
-        setFilteredTransactions(data);
+        setFilteredTransactions(data); 
       });
   }, []);
 
