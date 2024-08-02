@@ -1,12 +1,13 @@
 import React from "react";
 
-function Search() {
+function Search({ searchDes, setSearchDes }) {
   return (
     <div className="ui large fluid icon input">
       <input
         type="text"
         placeholder="Search your Recent Transactions"
-        onChange={() => console.log("Searching...")}
+        value={searchDes}
+        onChange={e => setSearchDes(e.target.value)}
       />
       <i className="circular search link icon"></i>
     </div>
