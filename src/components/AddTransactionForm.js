@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function AddTransactionForm({ onAddTransaction }) {
   const [formData, setFormData] = useState({
@@ -22,10 +23,19 @@ function AddTransactionForm({ onAddTransaction }) {
       },
       body: JSON.stringify(formData)
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then(newTransaction => {
         onAddTransaction(newTransaction);
         setFormData({ date: "", description: "", category: "", amount: 0 });
+        toast.success("Transaction Successfully Added!");
+      })
+      .catch(error => {
+        toast.error("Transaction Failed!");
       });
   };
 
