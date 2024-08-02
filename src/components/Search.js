@@ -15,7 +15,7 @@ function Search({ onSearch }) {
           reject();
         }
       }, 1000);
-    });
+    },);
 
     toast.promise(
       searchPromise,
