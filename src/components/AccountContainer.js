@@ -5,29 +5,41 @@ import AddTransactionForm from "./AddTransactionForm";
 
 function AccountContainer() {
   const [transactions, setTransactions] = useState([]);
-  const [searchDes, setSearchDes] = useState("");
-  
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+
   useEffect(() => {
-     fetch("http://localhost:8001/transactions")
-       .then(response => response.json())
-       .then(data => setTransactions(data));
-   }, []);
-  
+    fetch("http://localhost:8001/transactions")
+      .then(response => response.json())
+      .then(data => {
+        setTransactions(data);
+        setFilteredTransactions(data);
+      });
+  }, []);
+
   const handleAddTransaction = newTransaction => {
-      setTransactions([...transactions, newTransaction]);
-    };
-  
-    const filteredTransactions = transactions.filter(transaction =>
-      transaction.description.toLowerCase().includes(searchDes.toLowerCase())
-    );
-  
-    return (
-      <div>
-        <Search searchDes={searchDes} setSearchDes={setSearchDes} />
-        <AddTransactionForm onAddTransaction={handleAddTransaction} />
-        <TransactionsList transactions={filteredTransactions} />
-      </div>
-    );
-  }
-  
-  export default AccountContainer;
+    setTransactions([...transactions, newTransaction]);
+    setFilteredTransactions([...transactions, newTransaction]);
+  };
+
+  const handleSearch = searchTerm => {
+    if (searchTerm === "") {
+      setFilteredTransactions(transactions);
+    } else {
+      setFilteredTransactions(
+        transactions.filter(transaction =>
+          transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
+  };
+
+  return (
+    <div>
+      <Search onSearch={handleSearch} />
+      <AddTransactionForm onAddTransaction={handleAddTransaction} />
+      <TransactionsList transactions={filteredTransactions} />
+    </div>
+  );
+}
+
+export default AccountContainer;
