@@ -1,32 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import toast from "react-hot-toast";
+import { debounce } from "../utils/debounce";
 
 function Search({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = e => {
-    setSearchTerm(e.target.value);
-
-    const searchPromise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (e.target.value) {
+  const handleSearch = useCallback(
+    debounce(searchTerm => {
+      const searchPromise = new Promise((resolve, reject) => {
+        if (searchTerm) {
+          onSearch(searchTerm);
           resolve();
         } else {
+          onSearch(searchTerm);
           reject();
         }
-      }, 1000);
-    },);
+      });
 
-    toast.promise(
-      searchPromise,
-      {
-        loading: 'Searching...',
-        success: <b>Done!</b>,
-        error: <b>Not Found.</b>,
-      }
-    );
+      toast.promise(
+        searchPromise,
+        {
+          loading: 'Searching...',
+          success: <b>Done!</b>,
+          error: <b>Not Found.</b>,
+        }
+      );
+    }, 500), // Adjust the debounce delay as needed
+    []
+  );
 
-    onSearch(e.target.value);
+  const handleChange = e => {
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
+    handleSearch(searchTerm);
   };
 
   return (
@@ -35,7 +41,7 @@ function Search({ onSearch }) {
         type="text"
         placeholder="Search your Recent Transactions"
         value={searchTerm}
-        onChange={handleSearch}
+        onChange={handleChange}
       />
       <i className="circular search link icon"></i>
     </div>
