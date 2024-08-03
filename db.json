@@ -97,6 +97,16 @@
       "category": "test",
       "amount": "50",
       "id": 14
+    },
+    {
+      "id": 15
+    },
+    {
+      "date": "2024-08-04",
+      "description": "Cook lunch",
+      "category": "testing",
+      "amount": "80",
+      "id": 16
     }
   ]
 }

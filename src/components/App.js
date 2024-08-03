@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 function App() {
   // console.log(transactions);
   return (
-    <div className="ui raised segment">
+    <div className="ui raised segment ">
       <div className="ui segment violet inverted">
         <h2>The Royal Bank of Flatiron</h2>
       </div>

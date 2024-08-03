@@ -1,7 +1,7 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-function TransactionsList({ transactions }) {
+function TransactionsList({ transactions,onDelete }) {
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -20,7 +20,10 @@ function TransactionsList({ transactions }) {
           </th>
         </tr>
         {transactions.map(transaction => (
-          <Transaction key={transaction.id} transaction={transaction} />
+          <Transaction key={transaction.id}
+          transaction={transaction}
+          onDelete={onDelete}
+          />
         ))}
       </tbody>
     </table>
