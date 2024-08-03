@@ -1,14 +1,18 @@
 import React, { useState, useCallback } from "react";
 import toast from "react-hot-toast";
-import { debounce } from "../utils/debounce";
+import _ from "lodash";
 
-function Search({ onSearch }) {
+function Search({ onSearch ,transactions}) {
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Debounce the onSearch function using lodash
   const debouncedSearch = useCallback(
-    debounce(term => {
+    _.debounce((term) => {
       const searchPromise = new Promise((resolve, reject) => {
-        if (term) {
+        if (term === "" || transactions.some((transaction) => 
+          transaction.description.toLowerCase()
+            .includes(term
+              .toLowerCase()))) {
           onSearch(term);
           resolve();
         } else {
@@ -21,15 +25,15 @@ function Search({ onSearch }) {
         searchPromise,
         {
           loading: 'Searching...',
-          success: <b>Done!</b>,
-          error: <b>Not Found.</b>,
+          success: <b>Showing transactions </b>,
+          error: <b>No transactions found</b>
         }
       );
     }, 500),
     [onSearch]
   );
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
     debouncedSearch(term);
