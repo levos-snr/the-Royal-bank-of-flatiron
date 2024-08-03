@@ -10,13 +10,15 @@ function AccountContainer() {
   const [editingTransaction, setEditingTransaction] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [sortConfigurations, setSortConfigurations] = useState({ key: 'date', direction: 'asc' });
+
   const pageSize = 10;
   
   const URL = process.env.REACT_APP_TRANSACTION_END_POINT
   
   useEffect(() => {
-      fetchTransactions(currentPage);
-  }, [currentPage]);
+      fetchTransactions(currentPage, sortConfigurations);
+  }, [currentPage, sortConfigurations]);
 
   useEffect(() => {
     fetch(URL)
@@ -25,15 +27,15 @@ function AccountContainer() {
         setTransactions(data);
         setFilteredTransactions(data); 
       });
-  }, [URL]);
+  }, []);
   
-  const fetchTransactions = async (page) => {
-    const response = await fetch(`${URL}?_page=${page}&_limit=${pageSize}`);
+  const fetchTransactions = async (page, sortConfigurations) => {
+   const { key, direction } = sortConfigurations;
+    const response = await fetch(`${URL}?_page=${page}&_limit=${pageSize}&_sort=${key}&_order=${direction}`);
     const data = await response.json();
+    setTotalPages(Math.ceil(response.headers.get("X-Total-Count") / pageSize));
     setTransactions(data);
     setFilteredTransactions(data);
-    const totalCount = response.headers.get("X-Total-Count");
-    setTotalPages(Math.ceil(totalCount / pageSize));
   };
 
 
@@ -54,8 +56,11 @@ function AccountContainer() {
     setEditingTransaction(transaction);
   };
   
-
-
+  const handleSort = (key) => {
+    const direction = sortConfigurations.direction === 'asc' ? 'desc' : 'asc';
+    setSortConfigurations({ key, direction });
+  };
+  
 
    const handleSearch = (searchTerm) => {
     if (searchTerm === "") {
@@ -106,6 +111,8 @@ function AccountContainer() {
       currentPage={currentPage}
       totalPages={totalPages}
       setCurrentPage={setCurrentPage}
+      onSortChange={handleSort}
+      sortConfigurations={sortConfigurations}
       />
     </div>
   );
