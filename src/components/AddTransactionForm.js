@@ -15,8 +15,10 @@ function AddTransactionForm({ onAddTransaction }) {
   };
 
   const handleSubmit = e => {
+  const URL = process.env.REACT_APP_TRANSACTION_END_POINT
+
     e.preventDefault();
-    fetch("http://localhost:8001/transactions", {
+    fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
