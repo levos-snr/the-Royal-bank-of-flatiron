@@ -90,20 +90,6 @@
       "category": "testing",
       "amount": "500",
       "id": 13
-    },
-    {
-      "date": "2024-08-22",
-      "description": "Des",
-      "category": "food",
-      "amount": "7000",
-      "id": 14
-    },
-    {
-      "date": "2024-08-15",
-      "description": "Des",
-      "category": "food",
-      "amount": "08",
-      "id": 15
-    }
+    }    
   ]
 }
