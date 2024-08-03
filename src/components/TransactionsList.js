@@ -1,8 +1,9 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-function TransactionsList({ transactions,onDelete,onEdit }) {
+function TransactionsList({ transactions,onDelete,onEdit,currentPage,totalPages,setCurrentPage }) {
   return (
+    <>
     <table className="ui celled striped padded table">
       <tbody>
         <tr>
@@ -28,6 +29,16 @@ function TransactionsList({ transactions,onDelete,onEdit }) {
         ))}
       </tbody>
     </table>
+      <div className="pagination">
+              <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>{currentPage} of {totalPages}</span>
+              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
+    </>
   );
 }
 

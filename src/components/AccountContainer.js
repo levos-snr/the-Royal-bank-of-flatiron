@@ -8,8 +8,15 @@ function AccountContainer() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [editingTransaction, setEditingTransaction] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 10;
   
   const URL = process.env.REACT_APP_TRANSACTION_END_POINT
+  
+  useEffect(() => {
+      fetchTransactions(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     fetch(URL)
@@ -19,6 +26,16 @@ function AccountContainer() {
         setFilteredTransactions(data); 
       });
   }, [URL]);
+  
+  const fetchTransactions = async (page) => {
+    const response = await fetch(`${URL}?_page=${page}&_limit=${pageSize}`);
+    const data = await response.json();
+    setTransactions(data);
+    setFilteredTransactions(data);
+    const totalCount = response.headers.get("X-Total-Count");
+    setTotalPages(Math.ceil(totalCount / pageSize));
+  };
+
 
   const handleAddTransaction = newTransaction => {
     setTransactions([...transactions, newTransaction]);
@@ -86,6 +103,9 @@ function AccountContainer() {
       transactions={filteredTransactions} 
       onDelete={handleDeleteTransaction}
       onEdit={handleEdit}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      setCurrentPage={setCurrentPage}
       />
     </div>
   );
