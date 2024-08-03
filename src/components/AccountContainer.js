@@ -6,9 +6,11 @@ import AddTransactionForm from "./AddTransactionForm";
 function AccountContainer() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  
+  const URL = process.env.REACT_APP_TRANSACTION_END_POINT
 
   useEffect(() => {
-    fetch("http://localhost:8001/transactions")
+    fetch(URL)
       .then(response => response.json())
       .then(data => {
         setTransactions(data);
@@ -35,7 +37,7 @@ function AccountContainer() {
 
   return (
     <div>
-      <Search onSearch={handleSearch} />
+      <Search onSearch={handleSearch} transactions={filteredTransactions}/>
       <AddTransactionForm onAddTransaction={handleAddTransaction} />
       <TransactionsList transactions={filteredTransactions} />
     </div>
