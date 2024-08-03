@@ -9,7 +9,10 @@ function App() {
         <h2>The Royal Bank of Flatiron</h2>
       </div>
       <AccountContainer />
-      <Toaster />
+      <Toaster
+        position="top-left"
+        reverseOrder={false}
+      />
     </div>
   );
 }
