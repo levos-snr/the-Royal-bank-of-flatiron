@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 function AccountContainer() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [editingTransaction, setEditingTransaction] = useState(null);
   
   const URL = process.env.REACT_APP_TRANSACTION_END_POINT
 
@@ -23,6 +24,21 @@ function AccountContainer() {
     setTransactions([...transactions, newTransaction]);
     setFilteredTransactions([...transactions, newTransaction]);
   };
+  
+  const handleEditTransaction = updatedTransaction => {
+    const updatedTransactions = transactions.map(transaction =>
+      transaction.id === updatedTransaction.id ? updatedTransaction : transaction
+    );
+    setTransactions(updatedTransactions);
+    setFilteredTransactions(updatedTransactions);
+  };
+  
+  const handleEdit = transaction => {
+    setEditingTransaction(transaction);
+  };
+  
+
+
 
    const handleSearch = (searchTerm) => {
     if (searchTerm === "") {
@@ -53,15 +69,23 @@ function AccountContainer() {
       toast.error("Transaction Failed to Delete!");
     }
   }
-     
+  
+ 
 
   return (
     <div className="down">
       <Search onSearch={handleSearch} transactions={filteredTransactions}/>
-      <AddTransactionForm onAddTransaction={handleAddTransaction} />
+      <AddTransactionForm 
+      onAddTransaction={handleAddTransaction} 
+      editingTransaction={editingTransaction}
+      onEditTransaction={handleEditTransaction}
+      clearEditingTransaction={() => setEditingTransaction(null)}
+      
+      />
       <TransactionsList 
       transactions={filteredTransactions} 
       onDelete={handleDeleteTransaction}
+      onEdit={handleEdit}
       />
     </div>
   );

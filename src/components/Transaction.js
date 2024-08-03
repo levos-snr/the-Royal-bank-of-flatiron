@@ -1,6 +1,6 @@
 import React from "react";
 
-function Transaction({ transaction ,onDelete}) {
+function Transaction({ transaction ,onDelete,onEdit}) {
   const { id,date, description, category, amount } = transaction;
   return (
     <tr>
@@ -9,6 +9,7 @@ function Transaction({ transaction ,onDelete}) {
       <td>{category}</td>
       <td>{amount}</td>
       <td>
+        <button className="ui button" onClick={() => onEdit(transaction)}>Edit</button>
         <button className="ui red button" onClick={() => onDelete(id)}>Delete</button>
       </td>
     </tr>

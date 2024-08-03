@@ -1,45 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function AddTransactionForm({ onAddTransaction }) {
+const URL = process.env.REACT_APP_TRANSACTION_END_POINT
+
+
+function AddTransactionForm({ onAddTransaction,editingTransaction, onEditTransaction, clearEditingTransaction  }) {
   const [formData, setFormData] = useState({
     date: "",
     description: "",
     category: "",
     amount: 0
   });
+  
+  useEffect(() => {
+      if (editingTransaction) {
+        setFormData(editingTransaction);
+      }
+    }, [editingTransaction]);
 
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = e => {
-  const URL = process.env.REACT_APP_TRANSACTION_END_POINT
-
+  const handleSubmit = async e => {
     e.preventDefault();
-    fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    if (editingTransaction) {
+      const response = await fetch(
+        `${URL}/${editingTransaction.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         }
-        return response.json();
-      })
-      .then(newTransaction => {
-        onAddTransaction(newTransaction);
-        setFormData({ date: "", description: "", category: "", amount: 0 });
-        toast.success("Transaction Successfully Added!");
-      })
-      .catch(error => {
-        toast.error("Transaction Failed!");
+      );
+      if (response.ok) {
+        const updatedTransaction = await response.json();
+        onEditTransaction(updatedTransaction);
+        toast.success("Transaction Successfully Updated!");
+        clearEditingTransaction();
+      }
+    } else {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+      if (response.ok) {
+        const newTransaction = await response.json();
+        onAddTransaction(newTransaction);
+        toast.success("Transaction Successfully Added!");
+      }
+    }
+    setFormData({
+      date: "",
+      description: "",
+      category: "",
+      amount: 0,
+    });
   };
+  
+  
+  
 
   return (
     <div className="ui segment">
@@ -74,9 +100,18 @@ function AddTransactionForm({ onAddTransaction }) {
             onChange={handleChange}
           />
         </div>
-        <button className="ui button" type="submit">
-          Add Transaction
-        </button>
+          <button className="ui button" type="submit">
+          {editingTransaction ? "Update Transaction" : "Add Transaction"}
+            </button>
+              {editingTransaction && (
+            <button
+              className="ui button"
+              onClick={clearEditingTransaction
+              }
+            >
+              Cancel
+            </button>
+          )}
       </form>
     </div>
   );
