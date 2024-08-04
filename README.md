@@ -8,9 +8,8 @@ This project is a React-based application for managing financial transactions.
 The app allows users to display,add, edit, delete, search, and sort transactions. 
 It features a paginated view of transactions and provides visual indicators for sorting.
 Use the below gif as an example of how the app should function.
-<video width="320" height="240" controls>
-  <source src="./public/Final.mp4" type="video/mp4 autoplay">
-</video>
+
+<video src='./pubbblic/Final.mp4'  width=180/>
 
 > To view in VSCode, right click on the README.md file and select "Open Preview".
 
