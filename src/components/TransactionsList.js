@@ -1,6 +1,5 @@
 import React from "react";
 import "../index.css";
-import { Button } from "semantic-ui-react";
 import Transaction from "./Transaction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -101,25 +100,25 @@ function TransactionsList({
         </tbody>
       </table>
       <div className="pagination-controls">
-        <Button
-          primary
+        <button
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="pagination-button"
+          className="ui button primary "
         >
           Previous
-        </Button>
+        </button>
         <span className="page-info">
           {currentPage} of {totalPages}
         </span>
-        <Button
-          primary
+        <button
+          
           onClick={() => setCurrentPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="pagination-button"
+          className="ui button primary "
+          value="Next"
         >
           Next
-        </Button>
+        </button>
       </div>
     </div>
   );
