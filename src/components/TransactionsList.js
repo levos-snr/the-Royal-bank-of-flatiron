@@ -1,6 +1,5 @@
 import React from "react";
 import "../index.css";
-import { Button } from 'semantic-ui-react'
 import Transaction from "./Transaction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -102,7 +101,6 @@ function TransactionsList({
       </table>
       <div className="pagination-controls">
         <button
-          
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
           className="ui button primary "
