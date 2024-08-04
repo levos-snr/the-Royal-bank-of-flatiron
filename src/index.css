@@ -9,6 +9,10 @@ input {
   margin-left: 0.25em!important;
 }
 
+.content{
+   padding: 100px;
+}
+
 body {
   margin: 0;
   padding: 0;
