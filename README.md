@@ -29,6 +29,27 @@ https://github.com/user-attachments/assets/b62598ad-3982-4ce1-8d8e-d7d5846aef81
 - Semantic UI React: For UI components and styling.
 - Font Awesome: For icons.
 
+## File Structure
+
+```bash
+src/
+├── components/
+│   ├── AccountContainer.js
+│   ├── TransactionsList.js
+│   ├── Transaction.js
+│   ├── Search.js
+│   ├── AddTransactionForm.js
+│   ├── App.js
+│   └── Header.js
+├── services/
+│   ├── transactionService.js
+│   ├── eventHandlers.js
+└── hooks/
+    ├── useTransactions.js
+    ├── useFilteredTransactions.js
+    ├── useEditingTransaction.js
+```
+
 
 ## Setup
 

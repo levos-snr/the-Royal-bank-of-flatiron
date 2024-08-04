@@ -11,7 +11,7 @@ export const handleAddTransaction = async (newTransaction, transactions, setTran
     const updatedTransactions = [addedTransaction, ...transactions];
     setTransactions(updatedTransactions);
     setFilteredTransactions(updatedTransactions);
-    toast.success("Transaction added successfully!");
+    toast.success(`Transaction ID:${addedTransaction.id} added successfully!`);
   } catch (error) {
     toast.error("Failed to add transaction.");
   }
@@ -26,7 +26,7 @@ export const handleEditTransaction = async (updatedTransaction, transactions, se
     setTransactions(updatedTransactions);
     setFilteredTransactions(updatedTransactions);
     setEditingTransaction(null);
-    toast.success("Transaction updated successfully!");
+    toast.success(`Transaction ID:${editedTransaction.id} updated successfully!`);
   } catch (error) {
     toast.error("Failed to update transaction.");
   }
@@ -38,7 +38,7 @@ export const handleDeleteTransaction = async (id, transactions, setTransactions,
     const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
     setTransactions(updatedTransactions);
     setFilteredTransactions(updatedTransactions);
-    toast.success("Transaction deleted successfully!");
+    toast.success(`Transaction ID:${id} deleted successfully!`);
   } catch (error) {
     toast.error("Failed to delete transaction.");
   }
@@ -50,9 +50,10 @@ export const handleSearch = (term, transactions, setFilteredTransactions) => {
       transaction.description.toLowerCase().includes(term.toLowerCase())
     );
     setFilteredTransactions(filteredTransactions);
-    toast.success("Search completed.");
+    toast.success(`Found ${filteredTransactions.length} transactions.`);
   } catch (error) {
     toast.error("Search failed.");
+   
   }
 };
 
@@ -60,4 +61,5 @@ export const handleSort = (key, sortConfigurations, setSortConfigurations) => {
   const direction = sortConfigurations.key === key && sortConfigurations.direction === "asc" ? "desc" : "asc";
   setSortConfigurations({ key, direction });
   toast.success(`Sorted by ${key} in ${direction} order.`);
+  
 };
