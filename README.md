@@ -10,7 +10,9 @@ It features a paginated view of transactions and provides visual indicators for 
 Use the below gif as an example of how the app should function.
 
 
-<img src="./public/Final.gif" alt="demo" width="800"/>
+<video width="320" height="240" controls>
+  <source src="./public/Final.mp4" type="video/mp4 autoplay">
+</video>
 
 > To view in VSCode, right click on the README.md file and select "Open Preview".
 
