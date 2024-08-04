@@ -1,6 +1,5 @@
 # Bank of Flatiron
 <hr>
-
 Welcome to the Bank of Flatiron, where you can trust us with all your financial
 data! 
 
@@ -9,7 +8,8 @@ The app allows users to display,add, edit, delete, search, and sort transactions
 It features a paginated view of transactions and provides visual indicators for sorting.
 Use the below gif as an example of how the app should function.
 
-<video src='./pubbblic/Final.mp4'  width=180/>
+<video src='./pubbblic/Final.mp4' width=180/>
+
 
 > To view in VSCode, right click on the README.md file and select "Open Preview".
 
