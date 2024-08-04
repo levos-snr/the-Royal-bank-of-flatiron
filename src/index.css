@@ -26,3 +26,36 @@ body {
   padding: 20px;
   color: white;
 }
+
+.transactions-list {
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.sort-icon {
+  margin-left: 0.5em;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.page-info {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.pagination-button {
+  margin: 0 10px;
+}
+

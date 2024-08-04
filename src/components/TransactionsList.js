@@ -1,66 +1,127 @@
 import React from "react";
+import "../index.css";
+import { Button } from "semantic-ui-react";
 import Transaction from "./Transaction";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSort,
+  faSortUp,
+  faSortDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 
-function TransactionsList({ transactions,onDelete,onEdit,currentPage,totalPages,setCurrentPage, onSortChange, sortConfigurations }) {
-  
+function TransactionsList({
+  transactions,
+  onDelete,
+  onEdit,
+  currentPage,
+  totalPages,
+  setCurrentPage,
+  onSortChange,
+  sortConfigurations,
+}) {
   const getSortIcon = (key) => {
     if (sortConfigurations.key !== key) {
       return faSort;
     }
-    return sortConfigurations.direction === 'asc' ? faSortUp : faSortDown;
+    return sortConfigurations.direction === "asc" ? faSortUp : faSortDown;
   };
-  
+
   return (
-    <>
-    <table className="ui celled striped padded table">
-      <tbody>
-        <tr>
-                    <th>
-                      <h3 className="ui center aligned header" onClick={() => onSortChange('date')}>
-                        Date <FontAwesomeIcon icon={getSortIcon('date')}  title='sort date'/>
-                      </h3>
-                    </th>
-                    <th>
-                      <h3 className="ui center aligned header" onClick={() => onSortChange('description')}>
-                        Description <FontAwesomeIcon icon={getSortIcon('description')} title='sort description'/>
-                      </h3>
-                    </th>
-                    <th>
-                      <h3 className="ui center aligned header" onClick={() => onSortChange('category')}>
-                        Category <FontAwesomeIcon icon={getSortIcon('category')} title='sort category'/>
-                      </h3>
-                    </th>
-                    <th>
-                      <h3 className="ui center aligned header" onClick={() => onSortChange('amount')}>
-                        Amount <FontAwesomeIcon icon={getSortIcon('amount')} title='sort amount'/>
-                      </h3>
-                    </th>
-                    <th>
-                      <h3 className="ui center aligned header">Actions</h3>
-                    </th>
-                  </tr>
-          {transactions.map(transaction => (
-          <Transaction key={transaction.id}
-          transaction={transaction}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          />
-        ))}
-      </tbody>
-    </table>
-      <div className="pagination">
-             <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-               Previous
-             </button>
-             <span>{currentPage} of {totalPages}</span>
-             <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-               Next
-             </button>
-           </div>
-    </>
+    <div className="transactions-list">
+      <table className="ui celled striped padded table">
+        <thead>
+          <tr>
+            <th>
+              <h3
+                className="ui center aligned header sortable"
+                onClick={() => onSortChange("date")}
+              >
+                Date{" "}
+                <FontAwesomeIcon
+                  icon={getSortIcon("date")}
+                  title="Sort by date"
+                  className="sort-icon"
+                />
+              </h3>
+            </th>
+            <th>
+              <h3
+                className="ui center aligned header sortable"
+                onClick={() => onSortChange("description")}
+              >
+                Description{" "}
+                <FontAwesomeIcon
+                  icon={getSortIcon("description")}
+                  title="Sort by description"
+                  className="sort-icon"
+                />
+              </h3>
+            </th>
+            <th>
+              <h3
+                className="ui center aligned header sortable"
+                onClick={() => onSortChange("category")}
+              >
+                Category{" "}
+                <FontAwesomeIcon
+                  icon={getSortIcon("category")}
+                  title="Sort by category"
+                  className="sort-icon"
+                />
+              </h3>
+            </th>
+            <th>
+              <h3
+                className="ui center aligned header sortable"
+                onClick={() => onSortChange("amount")}
+              >
+                Amount{" "}
+                <FontAwesomeIcon
+                  icon={getSortIcon("amount")}
+                  title="Sort by amount"
+                  className="sort-icon"
+                />
+              </h3>
+            </th>
+            <th>
+              <h3 className="ui center aligned header">Actions</h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((transaction) => (
+            <Transaction
+              key={transaction.id}
+              transaction={transaction}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </tbody>
+      </table>
+      <div className="pagination-controls">
+        <Button
+          primary
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="pagination-button"
+        >
+          Previous
+        </Button>
+        <span className="page-info">
+          {currentPage} of {totalPages}
+        </span>
+        <Button
+          primary
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="pagination-button"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
   );
 }
 
