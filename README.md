@@ -8,8 +8,7 @@ The app allows users to display,add, edit, delete, search, and sort transactions
 It features a paginated view of transactions and provides visual indicators for sorting.
 Use the below gif as an example of how the app should function.
 
-
-
+https://github.com/user-attachments/assets/b62598ad-3982-4ce1-8d8e-d7d5846aef81
 
 > To view in VSCode, right click on the README.md file and select "Open Preview".
 
@@ -18,11 +17,7 @@ Use the below gif as an example of how the app should function.
 - Edit Transaction: Users can edit existing transactions.
 - Delete Transaction: Users can delete transactions.
 - Search Transactions: Users can search through transactions.
-- Sort Transac
-
-https://github.com/user-attachments/assets/b62598ad-3982-4ce1-8d8e-d7d5846aef81
-
-tions: Users can sort transactions by date, description, category, and amount.
+- Sort Transactions: Users can sort transactions by date, description, category, and amount.
 - Paginated View: Transactions are displayed in a paginated format.
 - Visual Sorting Indicators: Icons indicate the current sorting order for each column.
 
